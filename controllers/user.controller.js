@@ -66,3 +66,29 @@ export const createUser = async (req, res, next) => {
         next(error)
     }
 }
+
+export const deleteUser = async (req, res, next) => {
+try{
+    const { id } = req.params
+    console.log(id)
+    const existingUser = await User.findOne({ _id: id })
+
+    if(!existingUser){
+        const error = new Error('User not found')
+        error.statusCode = 404
+        throw error
+    }
+
+    //delete user
+    const UserDeleted = await User.deleteOne({ id })
+
+    res.status(200).json({
+        success: true,
+        message: 'User deleted successfuly',
+        user: UserDeleted
+    })
+
+}catch(err){
+    next(err)
+}
+}
