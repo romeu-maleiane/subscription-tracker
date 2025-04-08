@@ -32,6 +32,16 @@ export const createSubscription = async (req, res, next) => {
     }
 }
 
+export const getSubscriptions = async (req, res, next) => {
+    try{
+        const subscriptions = await Subscription.find()
+
+        res.status(200).json({succes: true, data: subscriptions})
+    } catch(err){
+        next(err)
+    }
+}
+
 export const getUserSubscription = async (req, res, next) => {
 
     try{
