@@ -60,6 +60,28 @@ export const getSubscriptionDetails = async(req, res, next) => {
     }
 }
 
+export const deleteSubscription = async (req, res, next) => {
+    try{
+        const subscriptionId = req.params.id
+
+        const subscriptionDeleted = await Subscription.deleteOne({ _id: subscriptionId })
+
+        if(!subscriptionDeleted){
+            const error = new Error('Subscription not found')
+            error.statusCode = 404
+            throw error
+        }
+
+        res.status(204).json({
+            success: true,
+            message: 'Subscription deleted successfuly',
+            data: subscriptionDeleted
+        })
+    } catch(err){
+        next(err)
+    }
+}
+
 export const getUserSubscription = async (req, res, next) => {
 
     try{

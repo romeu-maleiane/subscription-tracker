@@ -82,7 +82,7 @@ try{
     //delete user
     const UserDeleted = await User.deleteOne({ id })
 
-    res.status(200).json({
+    res.status(204).json({
         success: true,
         message: 'User deleted successfuly',
         user: UserDeleted
